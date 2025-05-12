@@ -1,0 +1,429 @@
+ <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SipalingTopUp - Murah, Cepat dan Aman</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            padding-top: 70px; /* Space for fixed header */
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        /* NEW HEADER STYLE */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background-color: #1976D2;
+            color: white;
+            padding: 0 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            height: 100%;
+        }
+        
+        .logo-img {
+            height: 80px;
+            width: auto;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        /* SEARCH FUNCTIONALITY */
+        .search-container {
+            position: relative;
+            display: none;
+            width: 200px;
+        }
+        
+        .search-container.active {
+            display: block;
+        }
+        
+        .search-container input {
+            width: 100%;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px;
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        .search-container input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        /* HAMBURGER MENU */
+        .menu-toggle {
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 70px;
+            right: -250px;
+            width: 250px;
+            height: calc(100vh - 70px);
+            background-color: white;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 999;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .mobile-menu a {
+            display: block;
+            padding: 15px;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .mobile-menu a:hover {
+            background-color: #f5f5f5;
+        }
+        
+        /* REST OF THE STYLES */
+        .main-banner {
+            width: 95%;
+            height: auto;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            border-radius: 5%;
+        }
+        
+        .game-banner {
+            width: 100%;
+            background-color: #2196F3;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            margin: 10px 0;
+            font-weight: bold;
+            border-left: 5px solid #0D47A1;
+        }
+        
+        .section {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1976D2;
+        }
+        
+        .warning {
+            background-color: #E3F2FD;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin: 10px 0;
+            border-left: 4px solid #1976D2;
+            color: #0D47A1;
+        }
+        
+        .product {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .product-name {
+            font-weight: bold;
+        }
+        
+        .product-price {
+            color: #1976D2;
+            font-weight: bold;
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .game-card {
+            display: block;
+            background-color: #E3F2FD;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            border-left: 3px solid #1976D2;
+        }
+        
+        .game-title {
+            font-weight: bold;
+            color: #0D47A1;
+        }
+        
+        .official-badge {
+            background-color: #1976D2;
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-top: 5px;
+            display: inline-block;
+        }
+        
+        footer {
+            padding: 15px;
+            text-align: center;
+            background-color: #0D47A1;
+            color: white;
+            font-size: 12px;
+        }
+        
+        .social-media {
+            margin-top: 10px;
+        }
+        
+        .contact-info {
+            background-color: #BBDEFB;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-align: center;
+            color: #0D47A1;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- NEW HEADER WITH LOGO, SEARCH AND MENU -->
+    <header>
+        <div class="logo-container">
+            <img src="https://raw.githubusercontent.com/SiPalingTopUp/sipalingtopup-logo.jpg/refs/heads/main/sipalingtopup-logo.jpg" alt="SiPalingTopUp" class="logo-img">
+        </div>
+        
+        <div class="header-right">
+            <div class="search-container" id="searchContainer">
+                <input type="text" placeholder="Cari game...">
+            </div>
+            <i class="fas fa-search search-toggle" id="searchToggle"></i>
+            <i class="fas fa-bars menu-toggle" id="menuToggle"></i>
+        </div>
+    </header>
+    
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#"><i class="fas fa-home"></i> Beranda</a>
+        <a href="#"><i class="fas fa-gamepad"></i> Game</a>
+        <a href="#"><i class="fas fa-tag"></i> Promo</a>
+        <a href="#"><i class="fas fa-headset"></i> Bantuan</a>
+        <a href="#"><i class="fas fa-phone"></i> Kontak</a>
+    </div>
+    
+    <div class="container">
+        <!-- Banner utama -->
+        <img src="https://raw.githubusercontent.com/SiPalingTopUp/sipalingtopup-banner.jpg/refs/heads/main/sipalingtopup-banner.jpg" class="main-banner" alt="Banner SipalingTopUp">
+        
+        <div class="section">
+            <div class="warning">
+                !!! Bijak Bertransaksi !!!
+            </div>
+        </div>
+        
+       
+        <div class="section">
+            <div class="section-title">POPULER:</div>
+            
+                <div class="game-grid">
+    <a href="free-fire.html" class="game-link">
+        <div class="game-card">
+            <div class="game-title">FREE FIRE</div>
+            <div class="official-badge">VIA ID</div>
+        </div>
+    </a>
+    
+    <a href="mobile-legends.html" class="game-link">
+        <div class="game-card">
+            <div class="game-title">MOBILE LEGENDS</div>
+            <div class="official-badge">VIA ID</div>
+        </div>
+    </a>
+    
+    <a href="pubg-mobile.html" class="game-link">
+        <div class="game-card">
+            <div class="game-title">PUBG MOBILE</div>
+            <div class="official-badge">VIA ID</div>
+        </div>
+    </a>
+    
+    <a href="genshin-impact.html" class="game-link">
+        <div class="game-card">
+            <div class="game-title">GENSHIN IMPACT</div>
+            <div class="official-badge">VIA ID</div>
+        </div>
+    </a>
+</div>
+                
+        <div class="section">
+            <div class="section-title">DAFTAR GAME:</div>
+            
+            
+            <div class="game-grid">
+                <div class="game-card">
+                    <div class="game-title">FREE FIRE</div>
+                    <div class="official-badge">VIA ID</div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-title">MOBILE LEGENDS</div>
+                    <div class="official-badge">VIA ID</div>
+                </div>
+                    
+                <div class="game-card">
+                    <div class="game-title">PUBG MOBILE</div>
+                    <div class="official-badge">VIA ID</div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-title">GENSHIN IMPACT</div>
+                    <div class="official-badge">VIA ID</div>
+                 </div>
+        
+                <div class="game-card">
+                    <div class="game-title">8 BALL POOL</div>
+                    <div class="official-badge">VIA ID</div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-title">HONOR OF KINGS</div>
+                    <div class="official-badge">VIA ID</div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-title">CLASH OF CLANS</div>
+                    <div class="official-badge">VIA ID</div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-title">COD MOBILE</div>
+                    <div class="official-badge">VIA ID</div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-title">GROWTOPIA</div>
+                    <div class="official-badge">VIA ID</div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-title">Hay Day</div>
+                    <div class="official-badge">VIA ID</div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-title">LORDS MOBILE</div>
+                    <div class="official-badge">VIA ID</div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-title">FC MOBILE</div>
+                    <div class="official-badge">VIA ID</div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-title">HONKAI: STAR RAIL</div>
+                    <div class="official-badge">VIA ID</div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-title">MODERN WARSHIP</div>
+                    <div class="official-badge">VIA ID</div>
+                </div>
+            </div>
+        </div>
+            
+        <div class="contact-info">
+            WhatsApp: +62-881-0262-44417<br>
+            Instagram: @SiPaling.TopUp
+        </div>
+        
+        <footer>
+            <div>SipalingTopUp - Tempat TopUp Game Terpercaya</div>
+            <div class="social-media">
+                © 2023 SipalingTopUp. All rights reserved.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Toggle mobile menu
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuToggle.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            searchContainer.classList.remove('active');
+        });
+        
+        // Toggle search bar
+        const searchToggle = document.getElementById('searchToggle');
+        const searchContainer = document.getElementById('searchContainer');
+        
+        searchToggle.addEventListener('click', function() {
+            searchContainer.classList.toggle('active');
+            mobileMenu.classList.remove('active');
+        });
+        
+        // Close menus when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!menuToggle.contains(event.target) && !mobileMenu.contains(event.target)) {
+                mobileMenu.classList.remove('active');
+            }
+            if (!searchToggle.contains(event.target) && !searchContainer.contains(event.target)) {
+                searchContainer.classList.remove('active') 
+               }
+            });
+    </script>
+</body>
+</html>

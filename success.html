@@ -1,0 +1,95 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran Berhasil - SiPalingTopUp</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f9ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            max-width: 600px;
+            text-align: center;
+        }
+        .success-icon {
+            color: #4CAF50;
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #2196F3;
+            margin-bottom: 20px;
+        }
+        .transaction-details {
+            text-align: left;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8fbff;
+            border-radius: 8px;
+            border: 1px solid #e0e9ff;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h1>Pembayaran Berhasil Diproses</h1>
+        
+        <div class="transaction-details" id="transactionDetails">
+            <!-- Detail transaksi akan diisi oleh JavaScript -->
+        </div>
+        
+        <p>Diamond akan segera diproses setelah pembayaran dikonfirmasi.</p>
+        <a href="index.html" class="btn">Kembali ke Beranda</a>
+    </div>
+
+    <script>
+        // Ambil data transaksi dari sessionStorage
+        const transactionData = JSON.parse(sessionStorage.getItem('lastTransaction'));
+        
+        if (transactionData) {
+            const detailsDiv = document.getElementById('transactionDetails');
+            
+            detailsDiv.innerHTML = `
+                <p><strong>ID Transaksi:</strong> ${transactionData.transaction_id}</p>
+                <p><strong>ID Free Fire:</strong> ${transactionData.player_id}</p>
+                <p><strong>Jumlah Diamond:</strong> ${transactionData.diamond_amount}</p>
+                <p><strong>Total Pembayaran:</strong> Rp ${parseInt(transactionData.diamond_price).toLocaleString('id-ID')}</p>
+                <p><strong>Metode Pembayaran:</strong> ${transactionData.payment_method}</p>
+                <p><strong>Waktu Transaksi:</strong> ${transactionData.timestamp}</p>
+                <p><strong>Status:</strong> ${transactionData.status}</p>
+            `;
+            
+            // Hapus data dari sessionStorage setelah ditampilkan
+            sessionStorage.removeItem('lastTransaction');
+        } else {
+            document.getElementById('transactionDetails').innerHTML = 
+                '<p>Tidak dapat memuat detail transaksi. Silakan cek email Anda untuk konfirmasi.</p>';
+        }
+    </script>
+</body>
+</html>
